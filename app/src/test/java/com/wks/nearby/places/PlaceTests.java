@@ -1,4 +1,4 @@
-package com.wks.nearby.places.source;
+package com.wks.nearby.places;
 
 import com.google.gson.Gson;
 import com.wks.nearby.data.places.Photo;
