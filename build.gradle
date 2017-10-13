@@ -46,4 +46,7 @@ ext {
 
     //Dependency Injection
     daggerVersion = '2.9'
+
+    //Unit Testing
+    junitVersion = '4.12'
 }

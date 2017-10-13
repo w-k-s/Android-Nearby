@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by waqqassheikh on 13/10/2017.
@@ -32,7 +32,7 @@ public class Place {
     private final String vicinity;
 
     @SerializedName("photos")
-    private final Collection<Photo> photos;
+    private final List<Photo> photos;
 
     protected Place(){
         id = "";
@@ -69,7 +69,7 @@ public class Place {
     }
 
     @NonNull
-    public Collection<Photo> getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 }

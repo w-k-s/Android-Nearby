@@ -11,7 +11,7 @@ public class Geometry {
     public static class Location {
         @SerializedName("lat")
         private final double latitude;
-        @SerializedName("lon")
+        @SerializedName("lng")
         private final double longitude;
 
         private Location(){
@@ -39,11 +39,11 @@ public class Geometry {
         return location;
     }
 
-    public Double getLatitude(){
-        return location == null? null : location.getLatitude();
+    public double getLatitude(){
+        return location == null? 0D : location.getLatitude();
     }
 
-    public Double getLongitude(){
-        return location == null? null : location.getLongitude();
+    public double getLongitude(){
+        return location == null? 0D : location.getLongitude();
     }
 }
