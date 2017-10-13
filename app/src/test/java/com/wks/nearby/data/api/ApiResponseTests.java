@@ -1,9 +1,7 @@
-package com.wks.nearby.places.api;
+package com.wks.nearby.data.api;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wks.nearby.data.api.ApiResponse;
-import com.wks.nearby.data.api.ApiStatus;
 
 import org.junit.Test;
 
