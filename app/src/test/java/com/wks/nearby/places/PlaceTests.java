@@ -1,6 +1,7 @@
 package com.wks.nearby.places;
 
 import com.google.gson.Gson;
+import com.wks.nearby.data.places.Geometry;
 import com.wks.nearby.data.places.Photo;
 import com.wks.nearby.data.places.Place;
 
@@ -98,5 +99,52 @@ public class PlaceTests {
     @Test
     public void testVicinity(){
         assertEquals(placeUnderTest.getVicinity(),EXAMPLE_VICINITY);
+    }
+
+    @Test
+    public void testConstructorWithValidArguments(){
+        final String id = "1";
+        final String placeId = "1";
+        final String name = "name";
+        final Geometry geometry = new Geometry(10,10);
+        final String icon = "icon";
+        final String vicinity = "vicinity";
+
+        Place place = new Place(
+                id,
+                placeId,
+                name,
+                geometry,
+                icon,
+                vicinity,
+                null
+        );
+
+        assertEquals(place.getId(),id);
+        assertEquals(place.getPlaceId(),placeId);
+        assertEquals(place.getName(),name);
+        assertEquals(place.getGeometry(),geometry);
+        assertEquals(place.getIcon(),icon);
+        assertEquals(place.getVicinity(),vicinity);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testConstructorWithNullId(){
+        new Place(null,"1","name",new Geometry(10,10));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testConstructorWithNullPlaceId(){
+        new Place("1",null,"name",new Geometry(10,10));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testConstructorWithNullName(){
+        new Place("1","1",null,new Geometry(10,10));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testConstructorWithNullGeometry(){
+        new Place("1","1","name",null);
     }
 }

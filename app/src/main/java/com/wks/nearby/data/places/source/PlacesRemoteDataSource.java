@@ -29,12 +29,14 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
     @Override
     public void loadNearbyPlaces(final double latitude,
                                  final double longitude,
-                                 final double radius,
+                                 final long radius,
                                  @NonNull final LoadNearbyPlacesCallback callback) {
 
         final String latLng = String.format(Locale.US,"%f,%f",latitude,longitude);
 
-        placesService.getNearbyPlaces("",latLng,50000).enqueue(new Callback<ApiResponse<List<Place>>>() {
+        placesService
+                .getNearbyPlaces("t",latLng,50000)
+                .enqueue(new Callback<ApiResponse<List<Place>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Place>>> call, Response<ApiResponse<List<Place>>> response) {
 

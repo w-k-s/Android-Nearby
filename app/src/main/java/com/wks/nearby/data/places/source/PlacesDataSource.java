@@ -26,7 +26,7 @@ public interface PlacesDataSource {
 
     void loadNearbyPlaces(double latitude,
                           double longitude,
-                          double radius,
+                          long radius,
                           @NonNull LoadNearbyPlacesCallback callback);
 
     void loadPlaceDetails(@NonNull String placeId,

@@ -21,7 +21,7 @@ public class PlacesRepository implements PlacesDataSource {
     @Override
     public void loadNearbyPlaces(double latitude,
                                  double longitude,
-                                 double radius,
+                                 long radius,
                                  @NonNull LoadNearbyPlacesCallback callback) {
         checkNotNull(callback);
         this.remoteDataSource.loadNearbyPlaces(latitude,longitude,radius,callback);

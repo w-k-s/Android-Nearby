@@ -49,4 +49,5 @@ ext {
 
     //Unit Testing
     junitVersion = '4.12'
+    mockitoVersion = '2.7.22'
 }

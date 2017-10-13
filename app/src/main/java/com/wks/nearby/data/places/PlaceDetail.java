@@ -1,5 +1,8 @@
 package com.wks.nearby.data.places;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -30,6 +33,27 @@ public class PlaceDetail extends Place{
         this.internationalPhoneNumber = "";
         this.website = "";
         this.rating = 0.0f;
+    }
+
+    public PlaceDetail(@NonNull final Place place,
+                       @Nullable final String address,
+                       @Nullable final String phoneNumber,
+                       @Nullable final String internationalPhoneNumber,
+                       @Nullable final String website,
+                       final float rating){
+        super(place.getId(),
+                place.getPlaceId(),
+                place.getName(),
+                place.getGeometry(),
+                place.getIcon(),
+                place.getVicinity(),
+                place.getPhotos());
+
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.internationalPhoneNumber = internationalPhoneNumber;
+        this.website = website;
+        this.rating = rating;
     }
 
     public String getAddress() {
