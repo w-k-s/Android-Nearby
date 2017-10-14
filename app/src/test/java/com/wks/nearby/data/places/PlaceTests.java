@@ -1,9 +1,6 @@
-package com.wks.nearby.places;
+package com.wks.nearby.data.places;
 
 import com.google.gson.Gson;
-import com.wks.nearby.data.places.Geometry;
-import com.wks.nearby.data.places.Photo;
-import com.wks.nearby.data.places.Place;
 
 import org.junit.Before;
 import org.junit.Test;

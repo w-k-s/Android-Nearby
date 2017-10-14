@@ -1,11 +1,8 @@
-package com.wks.nearby.places.source;
+package com.wks.nearby.data.places.source;
 
 import com.wks.nearby.data.places.Geometry;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.PlaceDetail;
-import com.wks.nearby.data.places.source.PlacesDataSource;
-import com.wks.nearby.data.places.source.PlacesRemoteDataSource;
-import com.wks.nearby.data.places.source.PlacesRepository;
 
 import org.junit.Before;
 import org.junit.Test;

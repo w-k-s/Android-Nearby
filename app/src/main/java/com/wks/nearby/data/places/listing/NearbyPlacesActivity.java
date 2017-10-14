@@ -1,4 +1,4 @@
-package com.wks.nearby.places.listing;
+package com.wks.nearby.data.places.listing;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import com.wks.nearby.R;
 import com.wks.nearby.app.App;
 import com.wks.nearby.base.BaseActivity;
-import com.wks.nearby.places.listing.dependencies.DaggerNearbyPlacesComponent;
+import com.wks.nearby.data.places.listing.dependencies.DaggerNearbyPlacesComponent;
 
 import javax.inject.Inject;
 

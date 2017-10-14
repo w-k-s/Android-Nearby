@@ -1,7 +1,4 @@
-package com.wks.nearby.places;
-
-import com.wks.nearby.data.places.Geometry;
-import com.wks.nearby.data.places.Location;
+package com.wks.nearby.data.places;
 
 import org.junit.Test;
 

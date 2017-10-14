@@ -1,4 +1,4 @@
-package com.wks.nearby.places.listing;
+package com.wks.nearby.data.places.listing;
 
 /**
  * Created by waqqassheikh on 14/10/2017.

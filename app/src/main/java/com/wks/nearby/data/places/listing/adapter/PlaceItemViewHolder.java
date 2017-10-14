@@ -1,4 +1,4 @@
-package com.wks.nearby.places.listing.adapter;
+package com.wks.nearby.data.places.listing.adapter;
 
 import android.support.v7.widget.RecyclerView;
 
