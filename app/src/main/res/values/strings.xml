@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Nearby</string>
+
+    <!-- NearbyPlacesFrgament -->
+    <string name="nearby_places_not_available">No Nearby Places</string>
+    <string name="swipe_to_refresh">Swipe to refresh</string>
 </resources>

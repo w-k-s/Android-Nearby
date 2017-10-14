@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.wks.nearby.places.listing.NearbyPlacesViewModel">
         </variable>
     </data>
+
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,10 +26,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_places"
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_places"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:visibility="@{(!viewModel.loading &amp;&amp; viewModel.empty)? View.VISIBLE : View.GONE }">
+
+                    <TextView
+                        android:id="@+id/textview_no_places_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/nearby_places_not_available"
+                        android:textSize="@dimen/fragment_nearby_places_error_title_size"/>
+
+                    <TextView
+                        android:id="@+id/textview_no_places_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/fragment_nearby_places_error_desc_size"
+                        android:text="@{viewModel.dataLoadingError}"
+                        tools:text="Network Error"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/fragment_nearby_places_error_desc_size"
+                        android:text="@string/swipe_to_refresh"/>
+                </LinearLayout>
+            </FrameLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

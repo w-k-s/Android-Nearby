@@ -1,10 +1,12 @@
 package com.wks.nearby.places.listing;
 
+import android.databinding.Observable;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +59,7 @@ public class NearbyPlacesFragment extends Fragment {
                 .inject(this);
 
         binding = FragmentNearbyPlacesBinding.inflate(inflater,container,false);
+        binding.setViewModel(viewModel);
 
         setupBindings();
 
@@ -67,7 +70,22 @@ public class NearbyPlacesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setupRefreshLayout();
+
         setupPlacesAdapter();
+    }
+
+    private void setupRefreshLayout(){
+
+        SwipeRefreshLayout refreshLayout = binding.swiperefreshlayout;
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.loadNearbyPlaces(25.2048,55.2708);
+            }
+        });
+
     }
 
     private void setupPlacesAdapter(){
@@ -96,14 +114,10 @@ public class NearbyPlacesFragment extends Fragment {
     private void setupBindings(){
         viewModel.items.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Place>>() {
             @Override
-            public void onChanged(ObservableList<Place> sender) {
-                placesAdapter.setItems(viewModel.items);
-            }
+            public void onChanged(ObservableList<Place> sender) {}
 
             @Override
-            public void onItemRangeChanged(ObservableList<Place> sender, int positionStart, int itemCount) {
-                placesAdapter.setItems(viewModel.items);
-            }
+            public void onItemRangeChanged(ObservableList<Place> sender, int positionStart, int itemCount) {}
 
             @Override
             public void onItemRangeInserted(ObservableList<Place> sender, int positionStart, int itemCount) {
@@ -111,13 +125,16 @@ public class NearbyPlacesFragment extends Fragment {
             }
 
             @Override
-            public void onItemRangeMoved(ObservableList<Place> sender, int fromPosition, int toPosition, int itemCount) {
-                placesAdapter.setItems(viewModel.items);
-            }
+            public void onItemRangeMoved(ObservableList<Place> sender, int fromPosition, int toPosition, int itemCount) {}
 
             @Override
-            public void onItemRangeRemoved(ObservableList<Place> sender, int positionStart, int itemCount) {
-                placesAdapter.setItems(viewModel.items);
+            public void onItemRangeRemoved(ObservableList<Place> sender, int positionStart, int itemCount) {}
+        });
+
+        viewModel.loading.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                binding.swiperefreshlayout.setRefreshing(viewModel.loading.get());
             }
         });
     }

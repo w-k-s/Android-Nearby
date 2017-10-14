@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="activity_horizontal_margin">16dp</dimen>
     <!-- place_item.xml -->
     <dimen name="place_item_image_width">80dp</dimen>
     <dimen name="place_item_image_height">80dp</dimen>
     <dimen name="place_item_name_text_size">18sp</dimen>
     <dimen name="place_item_vicinity_text_size">14sp</dimen>
+
+    <!-- fragment_nearby_places.xml -->
+    <dimen name="fragment_nearby_places_error_title_size">20sp</dimen>
+    <dimen name="fragment_nearby_places_error_desc_size">14sp</dimen>
 </resources>
