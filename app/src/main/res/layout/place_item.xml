@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageview_place"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/place_item_image_width"
+            android:layout_height="@dimen/place_item_image_height"
             android:layout_marginBottom="2dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="2dp"
@@ -38,7 +38,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="0dp"
             android:text="@{viewModel.name}"
-            android:textSize="18sp"
+            android:textSize="@dimen/place_item_name_text_size"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintEnd_toStartOf="@+id/imageview_indicator"
             app:layout_constraintStart_toEndOf="@+id/imageview_place"
@@ -51,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@{viewModel.vicinity}"
+            android:textSize="@dimen/place_item_vicinity_text_size"
             android:textColor="@color/textColorSecondary"
             app:layout_constraintEnd_toStartOf="@+id/imageview_indicator"
             app:layout_constraintStart_toStartOf="@+id/textview_place_name"
