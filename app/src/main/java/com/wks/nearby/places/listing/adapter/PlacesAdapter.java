@@ -1,4 +1,4 @@
-package com.wks.nearby.data.places.listing.adapter;
+package com.wks.nearby.places.listing.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

@@ -1,4 +1,4 @@
-package com.wks.nearby.data.places.listing;
+package com.wks.nearby.places.listing;
 
 import android.content.Context;
 import android.databinding.BaseObservable;

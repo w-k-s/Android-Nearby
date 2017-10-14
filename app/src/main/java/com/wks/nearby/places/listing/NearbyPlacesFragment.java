@@ -1,4 +1,4 @@
-package com.wks.nearby.data.places.listing;
+package com.wks.nearby.places.listing;
 
 import android.content.Intent;
 import android.content.IntentSender;
@@ -40,8 +40,8 @@ import com.wks.nearby.app.App;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.databinding.FragmentNearbyPlacesBinding;
-import com.wks.nearby.data.places.listing.adapter.PlacesAdapter;
-import com.wks.nearby.data.places.listing.dependencies.DaggerNearbyPlacesComponent;
+import com.wks.nearby.places.listing.adapter.PlacesAdapter;
+import com.wks.nearby.places.listing.dependencies.DaggerNearbyPlacesComponent;
 
 import javax.inject.Inject;
 
