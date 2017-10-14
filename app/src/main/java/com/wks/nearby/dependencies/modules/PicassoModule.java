@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
  * Created by waqqassheikh on 13/10/2017.
  */
 @Module(includes = {AppModule.class, NetworkModule.class})
-public class ImageLoaderModule {
+public class PicassoModule {
 
     @Provides
     @AppScope

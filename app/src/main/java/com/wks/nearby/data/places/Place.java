@@ -125,4 +125,13 @@ public class Place {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id='" + id + '\'' +
+                ", placeId='" + placeId + '\'' +
+                ", name='" + name + '\'' +
+                ", vicinity='" + vicinity + '\'' +
+                '}';
+    }
 }

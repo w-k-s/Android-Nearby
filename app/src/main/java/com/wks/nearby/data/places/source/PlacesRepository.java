@@ -34,4 +34,10 @@ public class PlacesRepository implements PlacesDataSource {
         checkNotNull(callback);
         this.remoteDataSource.loadPlaceDetails(placeId,callback);
     }
+
+    @Override
+    public String imageUrl(@NonNull String photoReference, int width, int height) {
+        checkNotNull(photoReference);
+        return this.remoteDataSource.imageUrl(photoReference,width,height);
+    }
 }

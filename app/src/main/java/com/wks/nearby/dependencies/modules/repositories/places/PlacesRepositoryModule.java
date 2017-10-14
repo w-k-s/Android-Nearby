@@ -2,13 +2,12 @@ package com.wks.nearby.dependencies.modules.repositories.places;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wks.nearby.app.Constants;
 import com.wks.nearby.data.places.source.PlacesRemoteDataSource;
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.data.places.source.PlacesService;
 import com.wks.nearby.dependencies.AppScope;
 import com.wks.nearby.dependencies.modules.NetworkModule;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PlacesRepositoryModule {
 
     @Provides
-    @Singleton
+    @AppScope
     public PlacesRepository placesRepository(PlacesRemoteDataSource remoteDataSource){
         return new PlacesRepository(remoteDataSource);
     }
@@ -48,7 +47,7 @@ public class PlacesRepositoryModule {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
-                .baseUrl("https://maps.googleapis.com/maps/api/place/")
+                .baseUrl(Constants.GOOGLE_PLACES_BASE_URL)
                 .build();
     }
 

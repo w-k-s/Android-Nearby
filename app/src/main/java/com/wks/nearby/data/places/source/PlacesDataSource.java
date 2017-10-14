@@ -31,4 +31,8 @@ public interface PlacesDataSource {
 
     void loadPlaceDetails(@NonNull String placeId,
                           @NonNull LoadPlaceDetailsCallback callback);
+
+    String imageUrl(@NonNull String photoReference,
+                    int width,
+                    int height);
 }

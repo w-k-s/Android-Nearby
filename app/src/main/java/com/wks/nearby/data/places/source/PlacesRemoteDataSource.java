@@ -1,7 +1,9 @@
 package com.wks.nearby.data.places.source;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.wks.nearby.app.Constants;
 import com.wks.nearby.data.api.ApiResponse;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.PlaceDetail;
@@ -35,7 +37,7 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
         final String latLng = String.format(Locale.US,"%f,%f",latitude,longitude);
 
         placesService
-                .getNearbyPlaces("t",latLng,50000)
+                .getNearbyPlaces(Constants.GOOGLE_PLACES_KEY,latLng,radius)
                 .enqueue(new Callback<ApiResponse<List<Place>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Place>>> call, Response<ApiResponse<List<Place>>> response) {
@@ -61,7 +63,7 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
     @Override
     public void loadPlaceDetails(@NonNull String placeId, @NonNull final LoadPlaceDetailsCallback callback) {
 
-        placesService.getPlaceDetails("",placeId).enqueue(new Callback<ApiResponse<PlaceDetail>>() {
+        placesService.getPlaceDetails(Constants.GOOGLE_PLACES_KEY,placeId).enqueue(new Callback<ApiResponse<PlaceDetail>>() {
             @Override
             public void onResponse(Call<ApiResponse<PlaceDetail>> call, Response<ApiResponse<PlaceDetail>> response) {
                 ApiResponse<PlaceDetail> detailResponse = response.body();
@@ -80,5 +82,18 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
                 callback.onDataNotAvailable(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public String imageUrl(@NonNull String photoReference, int width, int height) {
+        Uri photoUri = Uri.parse(Constants.GOOGLE_PLACES_BASE_URL)
+                .buildUpon()
+                .appendPath("photo")
+                .appendQueryParameter("key",Constants.GOOGLE_PLACES_KEY)
+                .appendQueryParameter("photoreference",photoReference)
+                .appendQueryParameter("maxwidth",String.valueOf(width))
+                .appendQueryParameter("maxheight",String.valueOf(height))
+                .build();
+        return photoUri.toString();
     }
 }
