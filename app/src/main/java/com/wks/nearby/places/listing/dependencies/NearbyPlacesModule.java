@@ -1,9 +1,10 @@
-package com.wks.nearby.places.listing;
+package com.wks.nearby.places.listing.dependencies;
 
 import android.content.Context;
 
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.dependencies.ActivityScope;
+import com.wks.nearby.places.listing.NearbyPlacesViewModel;
 
 import dagger.Module;
 import dagger.Provides;

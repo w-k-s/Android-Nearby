@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import com.wks.nearby.R;
 import com.wks.nearby.app.App;
 import com.wks.nearby.base.BaseActivity;
+import com.wks.nearby.places.listing.dependencies.DaggerNearbyPlacesComponent;
 
 import javax.inject.Inject;
 

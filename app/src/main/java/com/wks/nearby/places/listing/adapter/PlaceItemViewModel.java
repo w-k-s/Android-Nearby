@@ -1,4 +1,4 @@
-package com.wks.nearby.places.listing;
+package com.wks.nearby.places.listing.adapter;
 
 import android.databinding.ObservableField;
 

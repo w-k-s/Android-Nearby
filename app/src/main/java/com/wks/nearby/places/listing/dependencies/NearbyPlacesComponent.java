@@ -1,7 +1,9 @@
-package com.wks.nearby.places.listing;
+package com.wks.nearby.places.listing.dependencies;
 
 import com.wks.nearby.dependencies.ActivityScope;
 import com.wks.nearby.dependencies.AppComponent;
+import com.wks.nearby.places.listing.NearbyPlacesActivity;
+import com.wks.nearby.places.listing.NearbyPlacesFragment;
 
 import dagger.Component;
 
