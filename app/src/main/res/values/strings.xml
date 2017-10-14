@@ -4,4 +4,6 @@
     <!-- NearbyPlacesFrgament -->
     <string name="nearby_places_not_available">No Nearby Places</string>
     <string name="swipe_to_refresh">Swipe to refresh</string>
+    <string name="finding_location">Finding Location&#8230;</string>
+    <string name="location_not_available">Location not available</string>
 </resources>

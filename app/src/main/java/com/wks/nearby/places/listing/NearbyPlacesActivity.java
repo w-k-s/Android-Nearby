@@ -37,6 +37,8 @@ public class NearbyPlacesActivity extends BaseActivity {
 
         NearbyPlacesFragment fragment = findOrCreateFragment();
         fragment.setViewModel(viewModel);
+
+        viewModel.setLocationController(fragment);
     }
 
     private NearbyPlacesFragment findOrCreateFragment(){

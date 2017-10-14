@@ -82,7 +82,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlaceItemViewHolder>{
     }
 
     public void setItems(List<Place> places){
-        this.items.addAll(places);
+        this.items = places;
         notifyDataSetChanged();
     }
 }

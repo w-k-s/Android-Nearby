@@ -11,24 +11,33 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.wks.nearby.BR;
+import com.wks.nearby.R;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.source.PlacesDataSource;
 import com.wks.nearby.data.places.source.PlacesRepository;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
+
+import static com.wks.nearby.utils.Preconditions.checkNotNull;
 
 /**
  * Created by waqqassheikh on 14/10/2017.
  */
 
-public class NearbyPlacesViewModel extends BaseObservable{
+public class NearbyPlacesViewModel extends BaseObservable implements LocationRetrievedCallback{
 
     private Context context;
     private PlacesRepository placesRepository;
 
+    public final ObservableBoolean loadingLocation = new ObservableBoolean();
+    public final ObservableField<String> locationStatusLabel = new ObservableField<>();
+
     public final ObservableList<Place> items = new ObservableArrayList<>();
-    public final ObservableBoolean loading = new ObservableBoolean();
+    public final ObservableBoolean loadingPlaces = new ObservableBoolean();
     public final ObservableField<String> dataLoadingError = new ObservableField<>();
+
+    private WeakReference<LocationController> locationController;
 
     public NearbyPlacesViewModel(Context context,
                                  PlacesRepository placesRepository){
@@ -36,28 +45,71 @@ public class NearbyPlacesViewModel extends BaseObservable{
         this.placesRepository = placesRepository;
     }
 
-    public void loadNearbyPlaces(double latitude,
-                                 double longitude){
-        loading.set(true);
-        this.placesRepository.loadNearbyPlaces(latitude, longitude, 50000, new PlacesDataSource.LoadNearbyPlacesCallback() {
-            @Override
-            public void onNearbyPlacesLoaded(@NonNull List<Place> places) {
-                loading.set(false);
-                items.addAll(places);
-                notifyPropertyChanged(BR.empty);
-            }
+    public void setLocationController(@NonNull LocationController locationController) {
+        checkNotNull(locationController);
+        this.locationController = new WeakReference<LocationController>(locationController);
+    }
 
-            @Override
-            public void onDataNotAvailable(@Nullable String message) {
-                loading.set(false);
-                dataLoadingError.set(message);
-                notifyPropertyChanged(BR.empty);
-            }
-        });
+    public void start(){
+        findLocation();
+    }
+
+    public void refresh(){
+        loadingPlaces.set(false);
+        items.clear();
+        findLocation();
+    }
+
+    public void findLocation(){
+        final LocationController controller = locationController.get();
+        if(controller != null){
+            controller.determineLocation(this);
+            loadingLocation.set(true);
+        }
+    }
+
+    private void loadNearbyPlaces(double latitude,
+                                  double longitude) {
+        loadingPlaces.set(true);
+        this.placesRepository.loadNearbyPlaces(
+                latitude,
+                longitude,
+                50000,
+                new PlacesDataSource.LoadNearbyPlacesCallback() {
+                    @Override
+                    public void onNearbyPlacesLoaded(@NonNull List<Place> places) {
+                        loadingPlaces.set(false);
+                        items.addAll(places);
+                        notifyPropertyChanged(BR.empty);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable(@Nullable String message) {
+                        loadingPlaces.set(false);
+                        dataLoadingError.set(message);
+                        notifyPropertyChanged(BR.empty);
+                    }
+                }
+        );
     }
 
     @Bindable
     public boolean isEmpty(){
         return items.isEmpty();
+    }
+
+    //-- LocationRetrievedCallback
+
+
+    @Override
+    public void onLocationRetrieved(double latitude, double longitude) {
+        loadingLocation.set(false);
+        loadNearbyPlaces(latitude,longitude);
+    }
+
+    @Override
+    public void onLocationUnavailable() {
+        loadingLocation.set(false);
+        dataLoadingError.set(context.getString(R.string.location_not_available));
     }
 }

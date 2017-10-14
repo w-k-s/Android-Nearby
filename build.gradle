@@ -33,6 +33,7 @@ ext {
 
     supportLibraryVersion = '26.0.1'
     constraintLayoutVersion = '1.0.2'
+    playServicesVersion = '11.0.4'
 
     //Networking
     loggingInterceptorVersion = '3.9.0'
