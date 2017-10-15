@@ -14,5 +14,6 @@
     <dimen name="nearby_places_error_desc_size">14sp</dimen>
 
     <!-- fragment_place_details.xml -->
+    <dimen name="place_details_banner_image_height">150dp</dimen>
     <dimen name="place_details_label_width">120dp</dimen>
 </resources>

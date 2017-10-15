@@ -3,6 +3,7 @@ package com.wks.nearby.places.listing.adapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
+import com.wks.nearby.data.places.Photo;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.places.listing.NearbyPlacesNavigator;
@@ -41,9 +42,9 @@ public class PlaceItemViewModel {
         this.vicinity.set(place.getVicinity());
         this.icon.set(place.getIcon());
 
-        if (!place.getPhotos().isEmpty()){
-            final String photoReference = place.getPhotos().get(0).getReference();
-            this.photo.set(placesRepository.imageUrl(photoReference,photoWidth,photoHeight));
+        final Photo firstPhoto = place.getFirstPhoto();
+        if (firstPhoto != null){
+            this.photo.set(placesRepository.imageUrl(firstPhoto.getReference(),photoWidth,photoHeight));
         }
     }
 

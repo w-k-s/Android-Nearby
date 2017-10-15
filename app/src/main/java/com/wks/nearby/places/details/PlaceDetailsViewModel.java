@@ -9,6 +9,9 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.wks.nearby.R;
+import com.wks.nearby.app.Constants;
+import com.wks.nearby.data.places.Photo;
 import com.wks.nearby.data.places.PlaceDetail;
 import com.wks.nearby.data.places.source.PlacesDataSource;
 import com.wks.nearby.data.places.source.PlacesRepository;
@@ -25,6 +28,7 @@ public class PlaceDetailsViewModel extends BaseObservable{
     public final ObservableFloat rating = new ObservableFloat();
     public final ObservableInt numStars = new ObservableInt();
     public final ObservableField<String> icon = new ObservableField<>();
+    public final ObservableField<String> photo = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> phoneNumber = new ObservableField<>();
     public final ObservableField<String> internationalPhoneNumber = new ObservableField<>();
@@ -97,6 +101,19 @@ public class PlaceDetailsViewModel extends BaseObservable{
         phoneNumber.set(this.placeDetail.getPhoneNumber());
         internationalPhoneNumber.set(this.placeDetail.getInternationalPhoneNumber());
         website.set(this.placeDetail.getWebsite());
+
+        final int height = context
+                .getResources()
+                .getDimensionPixelSize(R.dimen.place_details_banner_image_height);
+
+        final Photo firstPhoto = this.placeDetail.getFirstPhoto();
+        if (firstPhoto != null){
+            photo.set(placesRepository.imageUrl(
+                    firstPhoto.getReference(),
+                    Constants.GOOGLE_PLACES_MAX_PHOTO_SIZE,
+                    height
+            ));
+        }
     }
 
     public void onWebsiteClicked(){

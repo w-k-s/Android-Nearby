@@ -86,6 +86,14 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
 
     @Override
     public String imageUrl(@NonNull String photoReference, int width, int height) {
+
+        if (width > Constants.GOOGLE_PLACES_MAX_PHOTO_SIZE) {
+            width = Constants.GOOGLE_PLACES_MAX_PHOTO_SIZE;
+        }
+        if (height > Constants.GOOGLE_PLACES_MAX_PHOTO_SIZE){
+            height = Constants.GOOGLE_PLACES_MAX_PHOTO_SIZE;
+        }
+
         Uri photoUri = Uri.parse(Constants.GOOGLE_PLACES_BASE_URL)
                 .buildUpon()
                 .appendPath("photo")

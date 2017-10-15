@@ -106,6 +106,12 @@ public class Place {
         return photos;
     }
 
+    @Nullable
+    public Photo getFirstPhoto(){
+        if (getPhotos().isEmpty()) return null;
+        return getPhotos().get(0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
