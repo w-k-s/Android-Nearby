@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
 import com.wks.nearby.R;
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.databinding.PlaceItemBinding;
@@ -23,27 +22,18 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlaceItemViewHolder>{
 
     private NearbyPlacesViewModel viewModel;
     private PlacesRepository placesRepository;
-    private Picasso picasso;
-
-    private int placePhotoWidth;
-    private int placePhotoHeight;
 
     public PlacesAdapter(@NonNull Context context,
                          @NonNull NearbyPlacesViewModel viewModel,
-                         @NonNull PlacesRepository placesRepository,
-                         @NonNull Picasso picasso){
+                         @NonNull PlacesRepository placesRepository){
 
         checkNotNull(context);
         checkNotNull(viewModel);
         checkNotNull(placesRepository);
-        checkNotNull(picasso);
 
         this.viewModel = viewModel;
         this.placesRepository = placesRepository;
-        this.picasso = picasso;
 
-        this.placePhotoWidth = context.getResources().getDimensionPixelSize(R.dimen.place_item_image_width);
-        this.placePhotoHeight = context.getResources().getDimensionPixelSize(R.dimen.place_item_image_height);
     }
 
     @Override
@@ -59,16 +49,6 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlaceItemViewHolder>{
 
         final PlaceItemViewModel itemViewModel = viewModel.viewModelForItem(position);
         holder.binding.setViewModel(itemViewModel);
-
-        if (itemViewModel.icon != null){
-            picasso.load(itemViewModel.icon).into(holder.binding.imageviewIcon);
-        }
-
-        if (itemViewModel.photoReference != null){
-            final String photoUrl =
-                    placesRepository.imageUrl(itemViewModel.photoReference,placePhotoWidth,placePhotoHeight);
-            picasso.load(photoUrl).into(holder.binding.imageviewPlace);
-        }
     }
 
     @Override

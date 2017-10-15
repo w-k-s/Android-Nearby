@@ -25,6 +25,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.photo}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -66,6 +67,7 @@
             android:scaleType="centerCrop"
             android:padding="2dp"
             android:background="@android:color/white"
+            app:imageUrl="@{viewModel.icon}"
             app:layout_constraintBottom_toBottomOf="@+id/imageview_place"
             app:layout_constraintEnd_toEndOf="@+id/imageview_place"
             tools:background="@color/colorAccent"/>

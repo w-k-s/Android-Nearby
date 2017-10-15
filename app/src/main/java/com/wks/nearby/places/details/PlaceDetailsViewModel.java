@@ -24,12 +24,15 @@ public class PlaceDetailsViewModel extends BaseObservable{
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableFloat rating = new ObservableFloat();
     public final ObservableInt numStars = new ObservableInt();
+    public final ObservableField<String> icon = new ObservableField<>();
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> phoneNumber = new ObservableField<>();
     public final ObservableField<String> internationalPhoneNumber = new ObservableField<>();
     public final ObservableField<String> website = new ObservableField<>();
 
     public final ObservableBoolean loading = new ObservableBoolean();
+    public final ObservableBoolean loadingComplete = new ObservableBoolean();//ugly hack for setting the pictures.
+
 
     private Context context;
     private PlaceDetail placeDetail;
@@ -89,6 +92,7 @@ public class PlaceDetailsViewModel extends BaseObservable{
         name.set(this.placeDetail.getName());
         rating.set(this.placeDetail.getRating());
         numStars.set(this.placeDetail.getMaxRating());
+        icon.set(this.placeDetail.getIcon());
         address.set(this.placeDetail.getAddress());
         phoneNumber.set(this.placeDetail.getPhoneNumber());
         internationalPhoneNumber.set(this.placeDetail.getInternationalPhoneNumber());
@@ -105,4 +109,5 @@ public class PlaceDetailsViewModel extends BaseObservable{
                 this.placeDetail.getGeometry().getLongitude()
         );
     }
+
 }

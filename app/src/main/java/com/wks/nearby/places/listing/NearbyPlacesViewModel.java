@@ -135,7 +135,10 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
     }
 
     public PlaceItemViewModel viewModelForItem(int index){
+        int width = context.getResources().getDimensionPixelSize(R.dimen.place_item_image_width);
+        int height = context.getResources().getDimensionPixelSize(R.dimen.place_item_image_height);
+
         final Place place = items.get(index);
-        return new PlaceItemViewModel(place,navigator);
+        return new PlaceItemViewModel(place,placesRepository,navigator,width,height);
     }
 }

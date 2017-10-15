@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.wks.nearby.data.places.Place;
+import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.places.listing.NearbyPlacesNavigator;
 
 import java.lang.ref.WeakReference;
@@ -21,11 +22,14 @@ public class PlaceItemViewModel {
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> vicinity = new ObservableField<>();
-    public final String icon;
-    public final String photoReference;
+    public final ObservableField<String> icon = new ObservableField<>();
+    public final ObservableField<String> photo = new ObservableField<>();
 
     public PlaceItemViewModel(@NonNull final Place place,
-                              @NonNull final NearbyPlacesNavigator navigator){
+                              @NonNull final PlacesRepository placesRepository,
+                              @NonNull final NearbyPlacesNavigator navigator,
+                              int photoWidth,
+                              int photoHeight){
 
         checkNotNull(place);
         checkNotNull(navigator);
@@ -35,12 +39,11 @@ public class PlaceItemViewModel {
 
         this.name.set(place.getName());
         this.vicinity.set(place.getVicinity());
-        this.icon = place.getIcon();
+        this.icon.set(place.getIcon());
 
         if (!place.getPhotos().isEmpty()){
-            this.photoReference = place.getPhotos().get(0).getReference();
-        }else{
-            this.photoReference = null;
+            final String photoReference = place.getPhotos().get(0).getReference();
+            this.photo.set(placesRepository.imageUrl(photoReference,photoWidth,photoHeight));
         }
     }
 

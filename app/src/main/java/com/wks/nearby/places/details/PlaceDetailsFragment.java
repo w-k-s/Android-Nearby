@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
 import com.wks.nearby.app.App;
 import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.databinding.FragmentPlaceDetailsBinding;
@@ -25,9 +24,6 @@ public class PlaceDetailsFragment extends Fragment {
 
     @Inject
     PlacesRepository placesRepository;
-
-    @Inject
-    Picasso picasso;
 
     private PlaceDetailsViewModel viewModel;
 

@@ -34,7 +34,6 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.squareup.picasso.Picasso;
 import com.wks.nearby.R;
 import com.wks.nearby.app.App;
 import com.wks.nearby.data.places.Place;
@@ -67,8 +66,6 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
     LocationRetrievedCallback locationCallback;
 
     @Inject PlacesRepository placesRepository;
-
-    @Inject Picasso picasso;
 
     ObservableList.OnListChangedCallback<ObservableList<Place>> placesListChangeObserver;
     Observable.OnPropertyChangedCallback loadingPlacesObserver;
@@ -153,8 +150,7 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
         placesAdapter = new PlacesAdapter(
                 getContext(),
                 viewModel,
-                placesRepository,
-                picasso);
+                placesRepository);
 
         recyclerView.setAdapter(placesAdapter);
     }
