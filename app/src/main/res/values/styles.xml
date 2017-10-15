@@ -22,4 +22,30 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- fragment_place_details.xml -->
+
+    <style name="PlaceDetailNameHeading" parent="android:style/TextAppearance">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="PlaceDetailTitleLabel" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:layout_width">@dimen/place_details_label_width</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="PlaceDetailValueLabel" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:autoLink">all</item>
+    </style>
+
+    <style name="PlaceDetailHyperlinkLabel" parent="PlaceDetailValueLabel">
+        <item name="android:textColor">@color/hyperlink</item>
+    </style>
+
 </resources>

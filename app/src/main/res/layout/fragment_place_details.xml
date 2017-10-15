@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="handler"
+            type="com.wks.nearby.places.details.PlaceDetailsFragment"/>
+
+        <variable
+            name="viewModel"
+            type="com.wks.nearby.places.details.PlaceDetailsViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.loading? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textview_place_name"
+            style="@style/PlaceDetailNameHeading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressbar"
+            tools:text="The Overlook Hotel"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imageview_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_place_name"
+            />
+
+        <RatingBar
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:rating="@{viewModel.rating}"
+            android:numStars="@{viewModel.numStars}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_icon"
+            app:layout_constraintStart_toEndOf="@+id/imageview_icon"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_icon">
+
+            <TextView
+                style="@style/PlaceDetailTitleLabel"
+                android:text="@string/address"/>
+
+            <TextView
+                style="@style/PlaceDetailHyperlinkLabel"
+                android:id="@+id/textview_address"
+                android:text="@{viewModel.address}"
+                android:onClick="@{handler::onAddressClicked}"
+                tools:text="Sidewinder"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_address">
+
+            <TextView
+                style="@style/PlaceDetailTitleLabel"
+                android:text="@string/phone_number"/>
+
+            <TextView
+                style="@style/PlaceDetailValueLabel"
+                android:text="@{viewModel.phoneNumber}"
+                tools:text="Phone Number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_intl_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_phone">
+
+            <TextView
+                style="@style/PlaceDetailTitleLabel"
+                android:text="@string/international_phone_number"/>
+
+            <TextView
+                style="@style/PlaceDetailValueLabel"
+                android:text="@{viewModel.internationalPhoneNumber}"
+                tools:text="Intl Phone Number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_website"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_intl_phone">
+
+            <TextView
+                style="@style/PlaceDetailHyperlinkLabel"
+                android:text="@string/website"
+                android:id="@+id/textview_website"
+                android:onClick="@{handler::onWebsiteClicked}"/>
+
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

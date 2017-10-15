@@ -15,6 +15,7 @@ import com.wks.nearby.R;
 import com.wks.nearby.data.places.Place;
 import com.wks.nearby.data.places.source.PlacesDataSource;
 import com.wks.nearby.data.places.source.PlacesRepository;
+import com.wks.nearby.places.listing.adapter.PlaceItemViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -31,13 +32,13 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
     private PlacesRepository placesRepository;
 
     public final ObservableBoolean loadingLocation = new ObservableBoolean();
-    public final ObservableField<String> locationStatusLabel = new ObservableField<>();
 
     public final ObservableList<Place> items = new ObservableArrayList<>();
     public final ObservableBoolean loadingPlaces = new ObservableBoolean();
     public final ObservableField<String> dataLoadingError = new ObservableField<>();
 
     private WeakReference<LocationController> locationController;
+    private NearbyPlacesNavigator navigator;
 
     public NearbyPlacesViewModel(Context context,
                                  PlacesRepository placesRepository){
@@ -45,9 +46,21 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
         this.placesRepository = placesRepository;
     }
 
+    //-- Getters & Setters
+
     public void setLocationController(@NonNull LocationController locationController) {
         checkNotNull(locationController);
         this.locationController = new WeakReference<LocationController>(locationController);
+    }
+
+    public void setNavigator(NearbyPlacesNavigator navigator) {
+        this.navigator = navigator;
+    }
+
+    //-- Lifecycle
+
+    public void onActivityDestroyed(){
+        this.navigator = null;
     }
 
     public void start(){
@@ -59,6 +72,9 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
         items.clear();
         findLocation();
     }
+
+    //-- Load Nearby Places
+
 
     public void findLocation(){
         final LocationController controller = locationController.get();
@@ -100,7 +116,6 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
 
     //-- LocationRetrievedCallback
 
-
     @Override
     public void onLocationRetrieved(double latitude, double longitude) {
         loadingLocation.set(false);
@@ -111,5 +126,16 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
     public void onLocationUnavailable() {
         loadingLocation.set(false);
         dataLoadingError.set(context.getString(R.string.location_not_available));
+    }
+
+    //-- Listing Places
+
+    public int getItemCount(){
+        return this.items.size();
+    }
+
+    public PlaceItemViewModel viewModelForItem(int index){
+        final Place place = items.get(index);
+        return new PlaceItemViewModel(place,navigator);
     }
 }

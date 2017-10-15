@@ -75,4 +75,8 @@ public class PlaceDetail extends Place{
     public float getRating() {
         return rating;
     }
+
+    public int getMaxRating(){
+        return 5;
+    }
 }

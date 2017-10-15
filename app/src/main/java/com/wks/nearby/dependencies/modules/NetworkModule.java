@@ -11,7 +11,6 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import timber.log.Timber;
 
 /**
  * Created by waqqassheikh on 13/10/2017.
@@ -35,13 +34,8 @@ public class NetworkModule {
     @Provides
     @AppScope
     public HttpLoggingInterceptor loggingInterceptor(){
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Timber.i(message);
-            }
-        });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
 

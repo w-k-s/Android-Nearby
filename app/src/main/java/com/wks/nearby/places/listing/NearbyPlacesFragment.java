@@ -70,6 +70,9 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
 
     @Inject Picasso picasso;
 
+    ObservableList.OnListChangedCallback<ObservableList<Place>> placesListChangeObserver;
+    Observable.OnPropertyChangedCallback loadingPlacesObserver;
+
     public NearbyPlacesFragment() {
 
     }
@@ -106,6 +109,20 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
         setupPlacesAdapter();
     }
 
+    @Override
+    public void onDestroy() {
+
+        if (placesListChangeObserver != null) {
+            viewModel.items.removeOnListChangedCallback(placesListChangeObserver);
+        }
+
+        if (loadingPlacesObserver != null){
+            viewModel.loadingPlaces.removeOnPropertyChangedCallback(loadingPlacesObserver);
+        }
+
+        super.onDestroy();
+    }
+
     private void setupRefreshLayout() {
 
         SwipeRefreshLayout refreshLayout = binding.swiperefreshlayout;
@@ -135,15 +152,16 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
 
         placesAdapter = new PlacesAdapter(
                 getContext(),
+                viewModel,
                 placesRepository,
-                picasso,
-                null);
+                picasso);
 
         recyclerView.setAdapter(placesAdapter);
     }
 
     private void setupBindings() {
-        viewModel.items.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Place>>() {
+
+        placesListChangeObserver = new ObservableList.OnListChangedCallback<ObservableList<Place>>() {
             @Override
             public void onChanged(ObservableList<Place> sender) {
                 Log.e(getClass().getSimpleName(),"onChanged");
@@ -155,7 +173,7 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
 
             @Override
             public void onItemRangeInserted(ObservableList<Place> sender, int positionStart, int itemCount) {
-                placesAdapter.setItems(viewModel.items);
+                placesAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -164,16 +182,19 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
 
             @Override
             public void onItemRangeRemoved(ObservableList<Place> sender, int positionStart, int itemCount) {
-                placesAdapter.setItems(viewModel.items);
+                placesAdapter.notifyDataSetChanged();
             }
-        });
+        };
+        viewModel.items.addOnListChangedCallback(placesListChangeObserver);
 
-        viewModel.loadingPlaces.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        loadingPlacesObserver = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 binding.swiperefreshlayout.setRefreshing(viewModel.loadingPlaces.get());
             }
-        });
+        };
+
+        viewModel.loadingPlaces.addOnPropertyChangedCallback(loadingPlacesObserver);
     }
 
     @Override

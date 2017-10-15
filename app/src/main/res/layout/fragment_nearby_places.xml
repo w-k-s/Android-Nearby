@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/nearby_places_not_available"
-                        android:textSize="@dimen/fragment_nearby_places_error_title_size"/>
+                        android:textSize="@dimen/nearby_places_error_title_size"/>
 
                     <TextView
                         android:id="@+id/textview_no_places_desc"
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@{viewModel.dataLoadingError}"
-                        android:textSize="@dimen/fragment_nearby_places_error_desc_size"
+                        android:textSize="@dimen/nearby_places_error_desc_size"
                         tools:text="Network Error"/>
 
                     <TextView
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/swipe_to_refresh"
-                        android:textSize="@dimen/fragment_nearby_places_error_desc_size"/>
+                        android:textSize="@dimen/nearby_places_error_desc_size"/>
                 </LinearLayout>
             </FrameLayout>
         </android.support.v4.widget.SwipeRefreshLayout>

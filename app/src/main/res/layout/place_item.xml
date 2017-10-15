@@ -2,8 +2,7 @@
 <layout>
 
     <data>
-
-        <variable
+       <variable
             name="viewModel"
             type="com.wks.nearby.places.listing.adapter.PlaceItemViewModel"/>
     </data>
@@ -14,7 +13,8 @@
                                                  android:layout_width="match_parent"
                                                  android:layout_height="wrap_content"
                                                  android:background="?android:attr/selectableItemBackground"
-                                                 android:orientation="vertical">
+                                                 android:orientation="vertical"
+        android:onClick="@{() -> viewModel.onPlaceItemClick()}">
 
         <ImageView
             android:id="@+id/imageview_place"
@@ -61,8 +61,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/place_item_icon_width"
+            android:layout_height="@dimen/place_item_icon_height"
             android:scaleType="centerCrop"
             android:padding="2dp"
             android:background="@android:color/white"

@@ -1,16 +1,18 @@
 package com.wks.nearby.places.listing;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 
 import com.wks.nearby.R;
 import com.wks.nearby.app.App;
 import com.wks.nearby.base.BaseActivity;
+import com.wks.nearby.places.details.PlaceDetailsActivity;
 import com.wks.nearby.places.listing.dependencies.DaggerNearbyPlacesComponent;
 
 import javax.inject.Inject;
 
-public class NearbyPlacesActivity extends BaseActivity {
+public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesNavigator{
 
     @Inject
     NearbyPlacesViewModel viewModel;
@@ -37,9 +39,11 @@ public class NearbyPlacesActivity extends BaseActivity {
         setTitle(getString(R.string.app_name));
 
         NearbyPlacesFragment fragment = findOrCreateFragment();
-        fragment.setViewModel(viewModel);
 
         viewModel.setLocationController(fragment);
+        viewModel.setNavigator(this);
+
+        fragment.setViewModel(viewModel);
     }
 
     private NearbyPlacesFragment findOrCreateFragment(){
@@ -55,5 +59,18 @@ public class NearbyPlacesActivity extends BaseActivity {
                     .commit();
         }
         return fragment;
+    }
+
+    @Override
+    protected void onDestroy() {
+        viewModel.onActivityDestroyed();
+        super.onDestroy();
+    }
+
+    //-- NearbyPlacesNavigator
+
+    @Override
+    public void openPlaceDetails(@NonNull String placeId) {
+        startActivity(PlaceDetailsActivity.newIntent(this,placeId));
     }
 }

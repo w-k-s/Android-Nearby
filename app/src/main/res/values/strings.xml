@@ -6,4 +6,10 @@
     <string name="swipe_to_refresh">Swipe to refresh</string>
     <string name="finding_location">Finding Location&#8230;</string>
     <string name="location_not_available">Location not available</string>
+
+    <!-- PlaceDetailsFragment -->
+    <string name="address">Address</string>
+    <string name="phone_number">Phone</string>
+    <string name="international_phone_number">Intl. Phone Number</string>
+    <string name="website">Website</string>
 </resources>
