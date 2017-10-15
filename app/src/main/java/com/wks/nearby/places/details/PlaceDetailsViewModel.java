@@ -9,6 +9,7 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.wks.nearby.BR;
 import com.wks.nearby.R;
 import com.wks.nearby.app.Constants;
 import com.wks.nearby.data.places.Photo;
@@ -114,6 +115,8 @@ public class PlaceDetailsViewModel extends BaseObservable{
                     height
             ));
         }
+
+        notifyPropertyChanged(BR._all);
     }
 
     public void onWebsiteClicked(){
@@ -126,5 +129,4 @@ public class PlaceDetailsViewModel extends BaseObservable{
                 this.placeDetail.getGeometry().getLongitude()
         );
     }
-
 }

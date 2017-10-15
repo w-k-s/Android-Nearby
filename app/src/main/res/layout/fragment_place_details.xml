@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                android:visibility="@{viewModel.address.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
                 app:layout_constraintStart_toStartOf="@+id/textview_place_name"
                 app:layout_constraintTop_toBottomOf="@+id/imageview_icon">
@@ -107,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                android:visibility="@{viewModel.phoneNumber.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
                 app:layout_constraintStart_toStartOf="@+id/textview_place_name"
                 app:layout_constraintTop_toBottomOf="@+id/layout_address">
@@ -127,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                android:visibility="@{viewModel.internationalPhoneNumber.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
                 app:layout_constraintStart_toStartOf="@+id/textview_place_name"
                 app:layout_constraintTop_toBottomOf="@+id/layout_phone">
@@ -148,6 +151,7 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
+                android:visibility="@{viewModel.website.isEmpty ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
                 app:layout_constraintStart_toStartOf="@+id/textview_place_name"
                 app:layout_constraintTop_toBottomOf="@+id/layout_intl_phone"

@@ -62,6 +62,11 @@ public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesNa
     }
 
     @Override
+    protected boolean getDisplayHomeAsUpEnabled() {
+        return false;
+    }
+
+    @Override
     protected void onDestroy() {
         viewModel.onActivityDestroyed();
         super.onDestroy();
