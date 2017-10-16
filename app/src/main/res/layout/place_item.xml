@@ -7,13 +7,13 @@
             type="com.wks.nearby.places.listing.adapter.PlaceItemViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="wrap_content"
-                                                 android:background="?android:attr/selectableItemBackground"
-                                                 android:orientation="vertical"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:onClick="@{() -> viewModel.onPlaceItemClick()}">
 
         <ImageView
@@ -26,39 +26,9 @@
             android:layout_marginTop="2dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{viewModel.photo}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             tools:background="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/textview_place_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            android:text="@{viewModel.name}"
-            android:textSize="@dimen/place_item_name_text_size"
-            android:textColor="@color/textColorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/imageview_indicator"
-            app:layout_constraintStart_toEndOf="@+id/imageview_place"
-            app:layout_constraintTop_toTopOf="@+id/imageview_place"
-            tools:layout_editor_absoluteX="87dp"
-            tools:text="Place Name"/>
-
-        <TextView
-            android:id="@+id/textview_vicinity"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@{viewModel.vicinity}"
-            android:textSize="@dimen/place_item_vicinity_text_size"
-            android:textColor="@color/textColorSecondary"
-            app:layout_constraintEnd_toStartOf="@+id/imageview_indicator"
-            app:layout_constraintStart_toStartOf="@+id/textview_place_name"
-            app:layout_constraintTop_toBottomOf="@+id/textview_place_name"
-            app:layout_constraintBottom_toBottomOf="@+id/imageview_place"
-            tools:text="Somwhere in the middle of nowhere"/>
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_icon"
@@ -68,17 +38,47 @@
             android:padding="2dp"
             android:background="@android:color/white"
             app:imageUrl="@{viewModel.icon}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageview_place"
-            app:layout_constraintEnd_toEndOf="@+id/imageview_place"
+            android:layout_alignEnd="@+id/imageview_place"
+            android:layout_alignBottom="@+id/imageview_place"
             tools:background="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/textview_place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@{viewModel.name}"
+            android:textSize="@dimen/place_item_name_text_size"
+            android:textColor="@color/textColorPrimary"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageview_place"
+            android:layout_toStartOf="@+id/imageview_indicator"
+            android:maxLines="2"
+            tools:text="Place Name"/>
+
+        <TextView
+            android:id="@+id/textview_vicinity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.vicinity}"
+            android:textSize="@dimen/place_item_vicinity_text_size"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/textColorSecondary"
+            android:layout_below="@+id/textview_place_name"
+            android:layout_alignStart="@+id/textview_place_name"
+            android:layout_alignEnd="@+id/textview_place_name"
+            android:ellipsize="end"
+            tools:text="Somwhere in the middle of nowhere"/>
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_detail_indicator"/>
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 </layout>

@@ -21,17 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
             android:paddingEnd="@dimen/activity_horizontal_margin">
 
 
             <TextView
                 android:id="@+id/textview_place_name"
                 style="@style/PlaceDetailNameHeading"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.name}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,38 +40,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="The Overlook Hotel"/>
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imageview_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:imageUrl="@{viewModel.icon}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_place_name"
-
-                />
-
-            <RatingBar
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="@{viewModel.numStars}"
-                android:rating="@{viewModel.rating}"
-                android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageview_icon"
-                app:layout_constraintStart_toEndOf="@+id/imageview_icon"
-                />
+                android:orientation="horizontal"
+                android:gravity="bottom">
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imageview_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:imageUrl="@{viewModel.icon}"
+
+                    />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="@{viewModel.numStars}"
+                    android:rating="@{viewModel.rating}"
+                    android:layout_marginStart="10dp"
+                    />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/layout_address"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:visibility="@{viewModel.address.isEmpty ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
-                app:layout_constraintStart_toStartOf="@+id/textview_place_name"
-                app:layout_constraintTop_toBottomOf="@+id/imageview_icon">
+                android:visibility="@{viewModel.address.isEmpty ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     style="@style/PlaceDetailTitleLabel"
@@ -86,14 +87,11 @@
 
             <LinearLayout
                 android:id="@+id/layout_phone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:visibility="@{viewModel.phoneNumber.isEmpty ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
-                app:layout_constraintStart_toStartOf="@+id/textview_place_name"
-                app:layout_constraintTop_toBottomOf="@+id/layout_address">
+                android:visibility="@{viewModel.phoneNumber.isEmpty ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     style="@style/PlaceDetailTitleLabel"
@@ -107,14 +105,11 @@
 
             <LinearLayout
                 android:id="@+id/layout_intl_phone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:visibility="@{viewModel.internationalPhoneNumber.isEmpty ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toEndOf="@+id/textview_place_name"
-                app:layout_constraintStart_toStartOf="@+id/textview_place_name"
-                app:layout_constraintTop_toBottomOf="@+id/layout_phone">
+                android:visibility="@{viewModel.internationalPhoneNumber.isEmpty ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     style="@style/PlaceDetailTitleLabel"
@@ -128,7 +123,7 @@
 
             <LinearLayout
                 android:id="@+id/layout_website"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
@@ -146,6 +141,6 @@
                     android:text="@string/website"/>
 
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
 </layout>
