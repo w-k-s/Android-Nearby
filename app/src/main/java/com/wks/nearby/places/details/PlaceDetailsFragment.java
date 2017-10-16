@@ -5,7 +5,6 @@ import android.databinding.Observable;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,8 @@ import com.wks.nearby.databinding.FragmentPlaceDetailsBinding;
 import com.wks.nearby.places.details.dependencies.DaggerPlaceDetailsComponent;
 
 import javax.inject.Inject;
+
+import mehdi.sakout.dynamicbox.DynamicBox;
 
 /**
  * Created by waqqassheikh on 15/10/2017.
@@ -31,7 +32,10 @@ public class PlaceDetailsFragment extends Fragment {
 
     FragmentPlaceDetailsBinding binding;
 
+    DynamicBox dynamicBox;
+
     Observable.OnPropertyChangedCallback placeDetailsErrorObserver;
+    Observable.OnPropertyChangedCallback loadingObserver;
 
     public PlaceDetailsFragment() {
 
@@ -69,10 +73,29 @@ public class PlaceDetailsFragment extends Fragment {
     }
 
     private void setupBindings(){
+        loadingObserver = new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if(viewModel.loading.get()){
+                    dynamicBox.showLoadingLayout();
+                }else{
+                    dynamicBox.hideAll();
+                }
+            }
+        };
+        viewModel.loading.addOnPropertyChangedCallback(loadingObserver);
+
         placeDetailsErrorObserver = new Observable.OnPropertyChangedCallback(){
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                Snackbar.make(binding.getRoot(),viewModel.placeDetailsError.get(),Snackbar.LENGTH_INDEFINITE).show();
+                dynamicBox.setOtherExceptionMessage(viewModel.placeDetailsError.get());
+                dynamicBox.setClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        viewModel.start();
+                    }
+                });
+                dynamicBox.showExceptionLayout();
             }
         };
         viewModel.placeDetailsError.addOnPropertyChangedCallback(placeDetailsErrorObserver);
@@ -82,6 +105,8 @@ public class PlaceDetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        dynamicBox = new DynamicBox(getActivity(),binding.getRoot());
+
         viewModel.start();
     }
 
@@ -89,6 +114,9 @@ public class PlaceDetailsFragment extends Fragment {
     public void onDestroy() {
         if (placeDetailsErrorObserver != null){
             viewModel.placeDetailsError.removeOnPropertyChangedCallback(placeDetailsErrorObserver);
+        }
+        if (loadingObserver != null){
+            viewModel.loading.removeOnPropertyChangedCallback(loadingObserver);
         }
         super.onDestroy();
     }

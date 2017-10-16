@@ -104,6 +104,8 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
         setupRefreshLayout();
 
         setupPlacesAdapter();
+
+        viewModel.refresh();
     }
 
     @Override
@@ -191,13 +193,6 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
         };
 
         viewModel.loadingPlaces.addOnPropertyChangedCallback(loadingPlacesObserver);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        viewModel.refresh();
     }
 
 
