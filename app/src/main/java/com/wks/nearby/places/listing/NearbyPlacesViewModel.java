@@ -76,7 +76,7 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
     //-- Load Nearby Places
 
 
-    public void findLocation(){
+    private void findLocation(){
         final LocationController controller = locationController.get();
         if(controller != null){
             controller.determineLocation(this);

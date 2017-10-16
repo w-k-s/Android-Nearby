@@ -1,9 +1,11 @@
 package com.wks.nearby.places.details;
 
 
+import android.databinding.Observable;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +27,11 @@ public class PlaceDetailsFragment extends Fragment {
     @Inject
     PlacesRepository placesRepository;
 
-    private PlaceDetailsViewModel viewModel;
+    PlaceDetailsViewModel viewModel;
+
+    FragmentPlaceDetailsBinding binding;
+
+    Observable.OnPropertyChangedCallback placeDetailsErrorObserver;
 
     public PlaceDetailsFragment() {
 
@@ -50,14 +56,26 @@ public class PlaceDetailsFragment extends Fragment {
                 .build()
                 .inject(this);
 
-        FragmentPlaceDetailsBinding binding = FragmentPlaceDetailsBinding.inflate(inflater, container, false);
-        binding.setViewModel(viewModel);
-        binding.setHandler(this);
+        this.binding = FragmentPlaceDetailsBinding.inflate(inflater, container, false);
+        this.binding.setViewModel(viewModel);
+        this.binding.setHandler(this);
 
-        binding.textviewAddress.setPaintFlags(binding.textviewAddress.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        binding.textviewWebsite.setPaintFlags(binding.textviewWebsite.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        this.binding.textviewAddress.setPaintFlags(this.binding.textviewAddress.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        this.binding.textviewWebsite.setPaintFlags(this.binding.textviewWebsite.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        return binding.getRoot();
+        setupBindings();
+
+        return this.binding.getRoot();
+    }
+
+    private void setupBindings(){
+        placeDetailsErrorObserver = new Observable.OnPropertyChangedCallback(){
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                Snackbar.make(binding.getRoot(),viewModel.placeDetailsError.get(),Snackbar.LENGTH_INDEFINITE).show();
+            }
+        };
+        viewModel.placeDetailsError.addOnPropertyChangedCallback(placeDetailsErrorObserver);
     }
 
     @Override
@@ -65,6 +83,14 @@ public class PlaceDetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         viewModel.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (placeDetailsErrorObserver != null){
+            viewModel.placeDetailsError.removeOnPropertyChangedCallback(placeDetailsErrorObserver);
+        }
+        super.onDestroy();
     }
 
     public void onAddressClicked(View view){

@@ -148,4 +148,5 @@ public class PlacesRepositoryTests {
 
         verify(loadPlaceDetailsCallback).onDataNotAvailable(eq(MESSAGE_PLACE_DETAILS_NOT_AVAILANLE));
     }
+
 }

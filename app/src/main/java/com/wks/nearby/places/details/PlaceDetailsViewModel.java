@@ -36,7 +36,7 @@ public class PlaceDetailsViewModel extends BaseObservable{
     public final ObservableField<String> website = new ObservableField<>();
 
     public final ObservableBoolean loading = new ObservableBoolean();
-    public final ObservableBoolean loadingComplete = new ObservableBoolean();//ugly hack for setting the pictures.
+    public final ObservableField<String> placeDetailsError = new ObservableField<>();
 
 
     private Context context;
@@ -89,6 +89,7 @@ public class PlaceDetailsViewModel extends BaseObservable{
             @Override
             public void onDataNotAvailable(@Nullable String message) {
                 loading.set(false);
+                placeDetailsError.set(message);
             }
         });
     }
