@@ -15,7 +15,10 @@ public class BindingAdapters {
 
     @BindingAdapter("imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
-        if (TextUtils.isEmpty(url)) return;
+        if (TextUtils.isEmpty(url)){
+            imageView.setImageDrawable(null);
+            return;
+        }
         final Picasso picasso = ((App)imageView.getContext().getApplicationContext()).getComponent().getPicasso();
         if (picasso != null) {
             picasso.with(imageView.getContext()).load(url).into(imageView);
