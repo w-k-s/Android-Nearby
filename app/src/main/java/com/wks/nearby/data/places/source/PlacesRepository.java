@@ -22,9 +22,10 @@ public class PlacesRepository implements PlacesDataSource {
     public void loadNearbyPlaces(double latitude,
                                  double longitude,
                                  long radius,
+                                 String pageToken,
                                  @NonNull LoadNearbyPlacesCallback callback) {
         checkNotNull(callback);
-        this.remoteDataSource.loadNearbyPlaces(latitude,longitude,radius,callback);
+        this.remoteDataSource.loadNearbyPlaces(latitude,longitude,radius,pageToken,callback);
     }
 
     @Override

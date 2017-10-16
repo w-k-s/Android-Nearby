@@ -1,6 +1,7 @@
 package com.wks.nearby.data.places.source;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.wks.nearby.data.api.ApiResponse;
 import com.wks.nearby.data.places.Place;
@@ -21,7 +22,8 @@ public interface PlacesService {
     @GET("nearbysearch/json")
     Call<ApiResponse<List<Place>>> getNearbyPlaces(@NonNull @Query("key") String key,
                                                    @NonNull @Query("location") String latLng,
-                                                   @Query("radius") long metres);
+                                                   @Query("radius") long metres,
+                                                   @Nullable @Query("pagetoken") String token);
 
     @GET("details/json")
     Call<ApiResponse<PlaceDetail>> getPlaceDetails(@NonNull @Query("key") String key,

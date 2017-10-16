@@ -15,7 +15,7 @@ import java.util.List;
 public interface PlacesDataSource {
 
     interface LoadNearbyPlacesCallback{
-        void onNearbyPlacesLoaded(@NonNull List<Place> places);
+        void onNearbyPlacesLoaded(@NonNull List<Place> places, @Nullable String nextPageToken);
         void onDataNotAvailable(@Nullable String message);
     }
 
@@ -27,6 +27,7 @@ public interface PlacesDataSource {
     void loadNearbyPlaces(double latitude,
                           double longitude,
                           long radius,
+                          String pageToken,
                           @NonNull LoadNearbyPlacesCallback callback);
 
     void loadPlaceDetails(@NonNull String placeId,

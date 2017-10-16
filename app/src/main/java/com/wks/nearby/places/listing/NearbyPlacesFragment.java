@@ -41,6 +41,7 @@ import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.databinding.FragmentNearbyPlacesBinding;
 import com.wks.nearby.places.listing.adapter.PlacesAdapter;
 import com.wks.nearby.places.listing.dependencies.DaggerNearbyPlacesComponent;
+import com.wks.nearby.utils.EndlessRecyclerViewScrollListener;
 
 import javax.inject.Inject;
 
@@ -66,6 +67,8 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
     LocationRetrievedCallback locationCallback;
 
     @Inject PlacesRepository placesRepository;
+
+    EndlessRecyclerViewScrollListener scrollListener;
 
     ObservableList.OnListChangedCallback<ObservableList<Place>> placesListChangeObserver;
     Observable.OnPropertyChangedCallback loadingPlacesObserver;
@@ -130,6 +133,7 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
             @Override
             public void onRefresh() {
                 viewModel.refresh();
+                scrollListener.resetState();
             }
         });
 
@@ -148,6 +152,14 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
                 DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(itemDecoration);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                viewModel.loadMore();
+            }
+        };
+        recyclerView.addOnScrollListener(scrollListener);
 
         placesAdapter = new PlacesAdapter(
                 getContext(),
@@ -172,6 +184,7 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
             @Override
             public void onItemRangeInserted(ObservableList<Place> sender, int positionStart, int itemCount) {
                 placesAdapter.notifyDataSetChanged();
+                scrollListener.finishedLoading();
             }
 
             @Override

@@ -32,12 +32,13 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
     public void loadNearbyPlaces(final double latitude,
                                  final double longitude,
                                  final long radius,
+                                 final String pageToken,
                                  @NonNull final LoadNearbyPlacesCallback callback) {
 
         final String latLng = String.format(Locale.US,"%f,%f",latitude,longitude);
 
         placesService
-                .getNearbyPlaces(Constants.GOOGLE_PLACES_KEY,latLng,radius)
+                .getNearbyPlaces(Constants.GOOGLE_PLACES_KEY,latLng,radius,pageToken)
                 .enqueue(new Callback<ApiResponse<List<Place>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Place>>> call, Response<ApiResponse<List<Place>>> response) {
@@ -50,7 +51,7 @@ public class PlacesRemoteDataSource implements PlacesDataSource {
                     return;
                 }
 
-                callback.onNearbyPlacesLoaded(placesResponse.getResult());
+                callback.onNearbyPlacesLoaded(placesResponse.getResult(),placesResponse.getNextPageToken());
             }
 
             @Override

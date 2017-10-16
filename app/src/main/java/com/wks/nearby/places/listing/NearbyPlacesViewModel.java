@@ -28,17 +28,18 @@ import static com.wks.nearby.utils.Preconditions.checkNotNull;
 
 public class NearbyPlacesViewModel extends BaseObservable implements LocationRetrievedCallback{
 
-    private Context context;
-    private PlacesRepository placesRepository;
-
     public final ObservableBoolean loadingLocation = new ObservableBoolean();
 
     public final ObservableList<Place> items = new ObservableArrayList<>();
     public final ObservableBoolean loadingPlaces = new ObservableBoolean();
     public final ObservableField<String> dataLoadingError = new ObservableField<>();
 
-    private WeakReference<LocationController> locationController;
-    private NearbyPlacesNavigator navigator;
+    Context context;
+    PlacesRepository placesRepository;
+    WeakReference<LocationController> locationController;
+    NearbyPlacesNavigator navigator;
+
+    String nextPageToken;
 
     public NearbyPlacesViewModel(Context context,
                                  PlacesRepository placesRepository){
@@ -63,14 +64,20 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
         this.navigator = null;
     }
 
-    public void start(){
+    public void refresh(){
+        loadingPlaces.set(false);
+
+        items.clear();
+        nextPageToken = null;
+
         findLocation();
     }
 
-    public void refresh(){
-        loadingPlaces.set(false);
-        items.clear();
-        findLocation();
+    public void loadMore(){
+        if(nextPageToken != null) {
+            //token stores parameters of previous request so we dont need to send lat lng again
+            loadNearbyPlaces(0, 0);
+        }
     }
 
     //-- Load Nearby Places
@@ -91,11 +98,16 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
                 latitude,
                 longitude,
                 50000,
+                nextPageToken,
                 new PlacesDataSource.LoadNearbyPlacesCallback() {
                     @Override
-                    public void onNearbyPlacesLoaded(@NonNull List<Place> places) {
+                    public void onNearbyPlacesLoaded(@NonNull List<Place> places,
+                                                     @Nullable String token) {
                         loadingPlaces.set(false);
+
                         items.addAll(places);
+                        nextPageToken = token;
+
                         notifyPropertyChanged(BR.empty);
                     }
 
