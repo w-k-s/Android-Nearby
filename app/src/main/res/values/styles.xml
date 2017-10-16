@@ -24,6 +24,10 @@
 
     <!-- fragment_place_details.xml -->
 
+    <style name="ExpandedToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="PlaceDetailNameHeading" parent="android:style/TextAppearance">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/textColorPrimary</item>

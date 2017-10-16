@@ -2,6 +2,7 @@ package com.wks.nearby.places.details;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import com.wks.nearby.R;
 import com.wks.nearby.app.App;
 import com.wks.nearby.base.BaseActivity;
+import com.wks.nearby.databinding.ActivityPlaceDetailsBinding;
 import com.wks.nearby.places.details.dependencies.DaggerPlaceDetailsComponent;
 import com.wks.nearby.places.listing.NearbyPlacesFragment;
 import com.wks.nearby.utils.IntentUtils;
@@ -50,6 +52,7 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsNa
 
     @Override
     protected void onDestroy() {
+
         if (viewModel != null){
             viewModel.onDestroy();
         }
@@ -76,8 +79,11 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsNa
     }
 
     private void setup(){
-        setContentView(R.layout.activity_place_details);
+        final ActivityPlaceDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_place_details);
+        binding.setViewModel(viewModel);
+
         setToolbar((Toolbar)findViewById(R.id.toolbar));
+        binding.collapsingToolbar.setTitle(" ");
 
         PlaceDetailsFragment fragment = findOrCreateFragment();
 
