@@ -23,4 +23,6 @@ public class TestConstants {
     public static final String EXAMPLE_WEBSITE = "http://www.somewhere.com";
     public static final float EXAMPLE_RATING = 4.5f;
 
+    public static final String EXAMPLE_NEXT_PAGE_TOKEN = "nextPage";
+
 }

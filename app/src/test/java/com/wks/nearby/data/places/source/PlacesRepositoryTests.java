@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.wks.nearby.TestConstants.EXAMPLE_NEXT_PAGE_TOKEN;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -86,30 +87,32 @@ public class PlacesRepositoryTests {
         final double longitude = 24.002;
         final long radius = 10000;
 
-        placesRepository.loadNearbyPlaces(latitude,longitude,radius,loadNearbyPlacesCallback);
+        placesRepository.loadNearbyPlaces(latitude,longitude,radius,EXAMPLE_NEXT_PAGE_TOKEN,loadNearbyPlacesCallback);
 
         verify(remoteDataSource)
                 .loadNearbyPlaces(
                         eq(latitude),
                         eq(longitude),
                         eq(radius),
+                        eq(EXAMPLE_NEXT_PAGE_TOKEN),
                         nearbyPlacesCallbackCaptor.capture());
 
-        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(PLACES);
+        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(PLACES,EXAMPLE_NEXT_PAGE_TOKEN);
 
-        verify(loadNearbyPlacesCallback).onNearbyPlacesLoaded(eq(PLACES));
+        verify(loadNearbyPlacesCallback).onNearbyPlacesLoaded(eq(PLACES),eq(EXAMPLE_NEXT_PAGE_TOKEN));
     }
 
     @Test
     public void testRetrievingPlacesFromRemoteSource_DataNotAvailable(){
 
-        placesRepository.loadNearbyPlaces(12.0D,13.0D,14000L,loadNearbyPlacesCallback);
+        placesRepository.loadNearbyPlaces(12.0D,13.0D,14000L,EXAMPLE_NEXT_PAGE_TOKEN,loadNearbyPlacesCallback);
 
         verify(remoteDataSource)
                 .loadNearbyPlaces(
                         anyDouble(),
                         anyDouble(),
                         anyLong(),
+                        anyString(),
                         nearbyPlacesCallbackCaptor.capture());
 
         nearbyPlacesCallbackCaptor.getValue().onDataNotAvailable(MESSAGE_PLACES_NOT_AVAILABLE);

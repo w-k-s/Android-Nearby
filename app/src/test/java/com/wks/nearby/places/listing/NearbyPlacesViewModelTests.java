@@ -26,6 +26,7 @@ import static com.wks.nearby.TestConstants.EXAMPLE_ID;
 import static com.wks.nearby.TestConstants.EXAMPLE_LATITUDE;
 import static com.wks.nearby.TestConstants.EXAMPLE_LONGITUDE;
 import static com.wks.nearby.TestConstants.EXAMPLE_NAME;
+import static com.wks.nearby.TestConstants.EXAMPLE_NEXT_PAGE_TOKEN;
 import static com.wks.nearby.TestConstants.EXAMPLE_PHOTO_HEIGHT;
 import static com.wks.nearby.TestConstants.EXAMPLE_PHOTO_REF;
 import static com.wks.nearby.TestConstants.EXAMPLE_PHOTO_WIDTH;
@@ -38,6 +39,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -125,9 +127,9 @@ public class NearbyPlacesViewModelTests {
 
         //loads places
         assertTrue(viewModelUnderTest.loadingPlaces.get());
-        verify(placesRepository).loadNearbyPlaces(eq(EXAMPLE_LATITUDE),eq(EXAMPLE_LONGITUDE),anyLong(),nearbyPlacesCallbackCaptor.capture());
+        verify(placesRepository).loadNearbyPlaces(eq(EXAMPLE_LATITUDE),eq(EXAMPLE_LONGITUDE),anyLong(),(String) isNull(),nearbyPlacesCallbackCaptor.capture());
 
-        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(Arrays.asList(PLACE));
+        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(Arrays.asList(PLACE),EXAMPLE_NEXT_PAGE_TOKEN);
 
         assertFalse(viewModelUnderTest.loadingPlaces.get());
         assertEquals(viewModelUnderTest.items.size(),1);
@@ -157,7 +159,7 @@ public class NearbyPlacesViewModelTests {
 
         locationRetrievedCallbackCaptor.getValue().onLocationRetrieved(EXAMPLE_LATITUDE,EXAMPLE_LONGITUDE);
 
-        verify(placesRepository).loadNearbyPlaces(anyDouble(),anyDouble(),anyLong(),nearbyPlacesCallbackCaptor.capture());
+        verify(placesRepository).loadNearbyPlaces(anyDouble(),anyDouble(),anyLong(),(String) isNull(),nearbyPlacesCallbackCaptor.capture());
 
         nearbyPlacesCallbackCaptor.getValue().onDataNotAvailable(ERROR_NEARBY_PLACES_UNAVAILABLE);
 
@@ -172,9 +174,9 @@ public class NearbyPlacesViewModelTests {
 
         locationRetrievedCallbackCaptor.getValue().onLocationRetrieved(EXAMPLE_LATITUDE,EXAMPLE_LONGITUDE);
 
-        verify(placesRepository).loadNearbyPlaces(anyDouble(),anyDouble(),anyLong(),nearbyPlacesCallbackCaptor.capture());
+        verify(placesRepository).loadNearbyPlaces(anyDouble(),anyDouble(),anyLong(),(String) isNull(),nearbyPlacesCallbackCaptor.capture());
 
-        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(Arrays.asList(PLACE));
+        nearbyPlacesCallbackCaptor.getValue().onNearbyPlacesLoaded(Arrays.asList(PLACE),EXAMPLE_NEXT_PAGE_TOKEN);
 
         PlaceItemViewModel itemViewModel = viewModelUnderTest.viewModelForItem(0);
 
