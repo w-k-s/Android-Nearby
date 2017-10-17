@@ -40,7 +40,9 @@ ext {
     retrofit2Version = '2.3.0'
     picassoVersion = '2.5.2'
     picassoDownloaderVersion = '1.1.0'
-    timberVersion = '4.5.1'
+
+    //UI
+    dynamicBoxVersion = '1.2'
 
     //Data
     gsonVersion = '2.7'
