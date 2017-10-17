@@ -161,10 +161,7 @@ public class NearbyPlacesFragment extends Fragment implements LocationController
         };
         recyclerView.addOnScrollListener(scrollListener);
 
-        placesAdapter = new PlacesAdapter(
-                getContext(),
-                viewModel,
-                placesRepository);
+        placesAdapter = new PlacesAdapter(getContext(), viewModel);
 
         recyclerView.setAdapter(placesAdapter);
     }

@@ -79,7 +79,8 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsNa
     }
 
     private void setup(){
-        final ActivityPlaceDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_place_details);
+        final ActivityPlaceDetailsBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_place_details);
         binding.setViewModel(viewModel);
 
         setToolbar((Toolbar)findViewById(R.id.toolbar));

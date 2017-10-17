@@ -95,20 +95,20 @@ public class PlaceDetailsViewModel extends BaseObservable{
     }
 
     private void bind(){
-        name.set(this.placeDetail.getName());
-        rating.set(this.placeDetail.getRating());
-        numStars.set(this.placeDetail.getMaxRating());
-        icon.set(this.placeDetail.getIcon());
-        address.set(this.placeDetail.getAddress());
-        phoneNumber.set(this.placeDetail.getPhoneNumber());
-        internationalPhoneNumber.set(this.placeDetail.getInternationalPhoneNumber());
-        website.set(this.placeDetail.getWebsite());
+        name.set(placeDetail.getName());
+        rating.set(placeDetail.getRating());
+        numStars.set(placeDetail.getMaxRating());
+        icon.set(placeDetail.getIcon());
+        address.set(placeDetail.getAddress());
+        phoneNumber.set(placeDetail.getPhoneNumber());
+        internationalPhoneNumber.set(placeDetail.getInternationalPhoneNumber());
+        website.set(placeDetail.getWebsite());
 
         final int height = context
                 .getResources()
                 .getDimensionPixelSize(R.dimen.place_details_banner_image_height);
 
-        final Photo firstPhoto = this.placeDetail.getFirstPhoto();
+        final Photo firstPhoto = placeDetail.getFirstPhoto();
         if (firstPhoto != null){
             photo.set(placesRepository.imageUrl(
                     firstPhoto.getReference(),
@@ -126,8 +126,8 @@ public class PlaceDetailsViewModel extends BaseObservable{
 
     public void onAddressClicked(){
         this.navigator.openMaps(
-                this.placeDetail.getGeometry().getLatitude(),
-                this.placeDetail.getGeometry().getLongitude()
+                placeDetail.getGeometry().getLatitude(),
+                placeDetail.getGeometry().getLongitude()
         );
     }
 }

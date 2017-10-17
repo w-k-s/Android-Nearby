@@ -60,12 +60,12 @@ public class PlaceDetailsFragment extends Fragment {
                 .build()
                 .inject(this);
 
-        this.binding = FragmentPlaceDetailsBinding.inflate(inflater, container, false);
-        this.binding.setViewModel(viewModel);
-        this.binding.setHandler(this);
+        binding = FragmentPlaceDetailsBinding.inflate(inflater, container, false);
+        binding.setViewModel(viewModel);
+        binding.setHandler(this);
 
-        this.binding.textviewAddress.setPaintFlags(this.binding.textviewAddress.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        this.binding.textviewWebsite.setPaintFlags(this.binding.textviewWebsite.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        binding.textviewAddress.setPaintFlags(binding.textviewAddress.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        binding.textviewWebsite.setPaintFlags(binding.textviewWebsite.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         setupBindings();
 

@@ -42,13 +42,13 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
     compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:$rootProject.ext.picassoDownloaderVersion"
-    compile "com.jakewharton.timber:timber:$rootProject.ext.timberVersion"
 
     //Data
     compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
 
     //UI
-    compile 'com.github.medyo:dynamicbox:1.2@aar'
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+    compile "com.github.medyo:dynamicbox:$rootProject.ext.dynamicBoxVersion@aar"
 
     //Unit Testing
     testCompile "junit:junit:$rootProject.ext.junitVersion"
@@ -57,5 +57,5 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
 }

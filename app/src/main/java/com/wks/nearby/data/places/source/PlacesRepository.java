@@ -25,7 +25,7 @@ public class PlacesRepository implements PlacesDataSource {
                                  String pageToken,
                                  @NonNull LoadNearbyPlacesCallback callback) {
         checkNotNull(callback);
-        this.remoteDataSource.loadNearbyPlaces(latitude,longitude,radius,pageToken,callback);
+        remoteDataSource.loadNearbyPlaces(latitude,longitude,radius,pageToken,callback);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class PlacesRepository implements PlacesDataSource {
                                  @NonNull LoadPlaceDetailsCallback callback) {
         checkNotNull(placeId);
         checkNotNull(callback);
-        this.remoteDataSource.loadPlaceDetails(placeId,callback);
+        remoteDataSource.loadPlaceDetails(placeId,callback);
     }
 
     @Override
     public String imageUrl(@NonNull String photoReference, int width, int height) {
         checkNotNull(photoReference);
-        return this.remoteDataSource.imageUrl(photoReference,width,height);
+        return remoteDataSource.imageUrl(photoReference,width,height);
     }
 }

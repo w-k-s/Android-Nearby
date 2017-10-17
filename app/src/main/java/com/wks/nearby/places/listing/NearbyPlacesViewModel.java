@@ -94,7 +94,7 @@ public class NearbyPlacesViewModel extends BaseObservable implements LocationRet
     private void loadNearbyPlaces(double latitude,
                                   double longitude) {
         loadingPlaces.set(true);
-        this.placesRepository.loadNearbyPlaces(
+        placesRepository.loadNearbyPlaces(
                 latitude,
                 longitude,
                 50000,

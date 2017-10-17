@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.wks.nearby.R;
-import com.wks.nearby.data.places.source.PlacesRepository;
 import com.wks.nearby.databinding.PlaceItemBinding;
 import com.wks.nearby.places.listing.NearbyPlacesViewModel;
 
@@ -21,18 +20,14 @@ import static com.wks.nearby.utils.Preconditions.checkNotNull;
 public class PlacesAdapter extends RecyclerView.Adapter<PlaceItemViewHolder>{
 
     private NearbyPlacesViewModel viewModel;
-    private PlacesRepository placesRepository;
 
     public PlacesAdapter(@NonNull Context context,
-                         @NonNull NearbyPlacesViewModel viewModel,
-                         @NonNull PlacesRepository placesRepository){
+                         @NonNull NearbyPlacesViewModel viewModel){
 
         checkNotNull(context);
         checkNotNull(viewModel);
-        checkNotNull(placesRepository);
 
         this.viewModel = viewModel;
-        this.placesRepository = placesRepository;
 
     }
 
