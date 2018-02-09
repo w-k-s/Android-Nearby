@@ -79,7 +79,7 @@ public class ApiResponseTests {
 
         assertEquals(apiResponse.getStatus(),ApiStatus.INVALID_REQUEST);
         assertEquals(apiResponse.getErrorMessage(),EXAMPLE_INVALID_REQUEST_MESSAGE);
-        assertFalse(apiResponse.isOK());
+        assertTrue(apiResponse.isOK());
     }
 
     @Test
